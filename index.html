@@ -7,13 +7,37 @@
   <div class="wrapper">
     <h1>Confess anything to me</h1>
     <div class="subtitle">All confessions are anonymous.</div>
-    <form class="container" action="php/sendwebhook.php" method="POST">
-      <input type="text" name="confession" placeholder="Type your confession..." required />
-      <button type="submit">Send</button>
-    </form>
+    
+    <div class="container">
+      <input type="text" id="confession" placeholder="Type your confession..." required />
+      <button type="button" onclick="sendConfession()">Send</button>
+    </div>
     
     <div class="note">
       I made this with ChatGPT, I ain't a HTML coder.
     </div>
   </div>
-</body></html>
+</body>
+
+<script>
+  function sendConfession() {
+    const confession = document.getElementById('confession').value.trim();
+
+    if (!confession) return;
+
+    fetch('php/send.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'confession=' + encodeURIComponent(confession)
+    }).then(response => {
+      if (response.ok) {
+        document.getElementById('confession').value = '';
+      } else {
+      }
+    });
+  }
+</script>
+
+</html>

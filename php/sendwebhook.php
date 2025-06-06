@@ -16,15 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confession'])) {
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $response = curl_exec($ch);
+        curl_exec($ch);
         curl_close($ch);
 
-        header("Location: index.html");
+        http_response_code(200);
         exit;
     }
 }
+
 ?>
