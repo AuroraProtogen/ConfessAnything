@@ -23,7 +23,10 @@
   function sendConfession() {
     const confession = document.getElementById('confession').value.trim();
 
-    if (!confession) return;
+    if (!confession) {
+      alert("Please type something.");
+      return;
+    }
 
     fetch('php/sendwebhook.php', {
       method: 'POST',
@@ -33,9 +36,13 @@
       body: 'confession=' + encodeURIComponent(confession)
     }).then(response => {
       if (response.ok) {
+        alert("Sent anonymously!");
         document.getElementById('confession').value = '';
       } else {
+        alert("Failed to send. Server returned status " + response.status);
       }
+    }).catch(error => {
+      alert("Network error: " + error.message);
     });
   }
 </script>
