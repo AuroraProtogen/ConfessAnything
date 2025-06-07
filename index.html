@@ -58,8 +58,7 @@
       }
 
       canSend = false;
-      button.disabled = true;
-      button.textContent = "Send";
+      button.textContent = "Sending...";
 
       fetch('https://sweet-pond-868f.aurorap.workers.dev/', {
         method: 'POST',
@@ -85,8 +84,7 @@
       .finally(() => {
         setTimeout(() => {
           canSend = true;
-          button.disabled = false;
-          button.textContent = "Cooldown";
+          button.textContent = "Send";
         }, cooldown);
       });
     }
