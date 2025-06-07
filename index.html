@@ -1,8 +1,16 @@
-<html lang="en"><head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <title>Confess Anything</title>
+
+  <!-- Main CSS -->
   <link rel="stylesheet" href="css/main.css">
+
+  <!-- Toastify CSS and JS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
+
 <body>
   <div class="wrapper">
     <h1>Confess anything to me</h1>
@@ -10,33 +18,77 @@
     
     <div class="container">
       <input type="text" id="confession" placeholder="Type your confession..." required />
-      <button type="button" onclick="sendConfession()">Send</button>
+      <button type="button" onclick="sendConfession()" id="sendBtn">Send</button>
     </div>
     
     <div class="note">
       I made this with ChatGPT, I ain't a HTML coder.
     </div>
   </div>
-</body>
 
-<script>
-  function sendConfession() {
-    const confession = document.getElementById('confession').value.trim();
+  <script>
+    let canSend = true;
+    const cooldown = 10000; // 10 seconds
 
-    if (!confession) {
-      alert("Please type something.");
-      return;
+    function showToast(message, color = "#333") {
+      Toastify({
+        text: message,
+        duration: 3000,
+        gravity: "bottom",
+        position: "center",
+        close: true,
+        backgroundColor: color,
+        stopOnFocus: true,
+      }).showToast();
     }
 
-    fetch('https://sweet-pond-868f.aurorap.workers.dev/', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  body: 'confession=' + encodeURIComponent(confession)
-})
-;
- }
-</script>
+    function sendConfession() {
+      const input = document.getElementById('confession');
+      const confession = input.value.trim();
+      const button = document.getElementById('sendBtn');
 
+      if (!confession) {
+        showToast("Please type something.", "#aa0000");
+        return;
+      }
+
+      if (!canSend) {
+        showToast("You're sending too fast. Wait 10 seconds.", "#aa0000");
+        return;
+      }
+
+      canSend = false;
+      button.disabled = true;
+      button.textContent = "Sending...";
+
+      fetch('https://sweet-pond-868f.aurorap.workers.dev/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'confession=' + encodeURIComponent(confession)
+      })
+      .then(response => {
+        if (response.status === 429) {
+          showToast("Too fast! Please wait.", "#aa0000");
+        } else if (!response.ok) {
+          showToast("Failed to send. Server error " + response.status, "#aa0000");
+        } else {
+          input.value = '';
+          showToast("Confession sent anonymously!", "#00aa55");
+        }
+      })
+      .catch(err => {
+        showToast("Network error: " + err.message, "#aa0000");
+      })
+      .finally(() => {
+        setTimeout(() => {
+          canSend = true;
+          button.disabled = false;
+          button.textContent = "Send";
+        }, cooldown);
+      });
+    }
+  </script>
+</body>
 </html>
