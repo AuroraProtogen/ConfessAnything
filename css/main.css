@@ -9,6 +9,8 @@ body {
 }
   .wrapper {
     text-align: center;
+    flex: 1;
+    padding: 2rem;
 }
   h1 {
     font-size: 32px;
@@ -68,7 +70,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
-  }
+}
 
   #publicToggleBtn {
     width: 30px;
@@ -76,4 +78,43 @@ body {
     font-size: 18px;
     text-align: center;
     cursor: pointer;
-  }
+}
+  .public-feed {
+    width: 300px;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    overflow-y: auto;
+}
+  .public-feed h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+  .public-feed .confession {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+}
+  .public-toggle {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+  #publicToggleBtn {
+    width: 2rem;
+    height: 2rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.5rem;
+    border: 2px solid #888;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}

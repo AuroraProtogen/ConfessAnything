@@ -26,32 +26,35 @@
 </head>
 
 <body>
-
+  <div class="public-feed" id="publicFeed">
+    <h2>Public Confessions</h2>
+    <div id="feedContent">Loading...</div>
+  </div>
+  
   <div class="wrapper">
     <h1>Confess anything to me</h1>
     <div class="subtitle">All confessions are anonymous.</div>
-    
+  
     <div class="container">
       <input type="text" id="confession" placeholder="Type your confession..." required />
       <button type="button" onclick="sendConfession()" id="sendBtn">Send</button>
     </div>
-
+  
     <div class="public-toggle">
       <span>Make confession public?</span>
-      <button id="publicToggleBtn" type="button" onclick="togglePublic()"> </button>
+      <button id="publicToggleBtn" type="button" onclick="togglePublic()"></button>
     </div>
-    
+  
     <div class="note">
       I made this with ChatGPT, I ain't a HTML coder.
     </div>
   </div>
-
+  
   <script>
     let isPublic = false;
     let canSend = true;
-
-    const cooldown = 10000; // 10 seconds
-
+    const cooldown = 10000;
+  
     function showToast(message, color = "#333") {
       Toastify({
         text: message,
@@ -63,41 +66,37 @@
         stopOnFocus: true,
       }).showToast();
     }
-
-    
+  
     function togglePublic() {
       isPublic = !isPublic;
       const btn = document.getElementById('publicToggleBtn');
       btn.textContent = isPublic ? 'X' : '';
     }
-
+  
     function sendConfession() {
       const input = document.getElementById('confession');
       const confession = input.value.trim();
       const button = document.getElementById('sendBtn');
-
+  
       if (!canSend) {
         showToast("Rate limit exceeded. Try again later.", "#aa0000");
         return;
       }
-
+  
       if (!confession) {
         showToast("Missing confession", "#aa0000");
         return;
       }
-
+  
       canSend = false;
       button.textContent = "Sending...";
-
+  
       fetch('https://sweet-pond-868f.aurorap.workers.dev/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'confession=' + encodeURIComponent(confession) + '&public=' + isPublic
       })
       .then(response => {
-        console.log(response)
         if (response.status === 429) {
           showToast("Too fast! Please wait.", "#aa0000");
         } else if (!response.ok) {
@@ -105,6 +104,7 @@
         } else {
           input.value = '';
           showToast("Confession sent anonymously!", "#00aa55");
+          if (isPublic) fetchPublicConfessions();
         }
       })
       .catch(err => {
@@ -117,8 +117,31 @@
         }, cooldown);
       });
     }
-  </script>
   
+    function fetchPublicConfessions() {
+      const feed = document.getElementById("feedContent");
+      fetch('https://sweet-pond-868f.aurorap.workers.dev/?GetPublicConfessions=true')
+        .then(res => res.json())
+        .then(confessions => {
+          feed.innerHTML = '';
+          confessions.forEach(c => {
+            const div = document.createElement("div");
+            div.className = "confession";
+            div.textContent = c;
+            feed.appendChild(div);
+          });
+          if (confessions.length === 0) {
+            feed.innerHTML = "<i>No public confessions yet.</i>";
+          }
+        })
+        .catch(() => {
+          feed.innerHTML = "<i>Failed to load public confessions.</i>";
+        });
+    }
+  
+    // Load on page start
+    fetchPublicConfessions();
+  </script>
 </body>
 
 </html>
