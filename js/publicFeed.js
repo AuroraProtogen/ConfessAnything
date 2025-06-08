@@ -1,22 +1,23 @@
-function loadPublicFeed() {
-    fetch('https://sweet-pond-868f.aurorap.workers.dev/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: 'GetPublicConfessions=true'
-    })
-    .then(res => res.text())
-    .then(text => {
-      const feed = document.getElementById('feedContent');
-      const confessions = text.split('\n').filter(x => x.trim() !== '');
-      feed.innerHTML = confessions.map(c => `<p>${c}</p>`).join('');
-    })
-    .catch(err => {
-      const feed = document.getElementById('feedContent');
-      feed.innerHTML = '<p>Failed to load public confessions.</p>';
-    });
+function fetchPublicConfessions() {
+    const feed = document.getElementById("feedContent");
+    fetch('https://sweet-pond-868f.aurorap.workers.dev/?GetPublicConfessions=true')
+      .then(res => res.json())
+      .then(confessions => {
+        feed.innerHTML = '';
+        confessions.forEach(c => {
+          const div = document.createElement("div");
+          div.className = "confession";
+          div.textContent = c;
+          feed.appendChild(div);
+        });
+        if (confessions.length === 0) {
+          feed.innerHTML = "<i>No public confessions yet.</i>";
+        }
+      })
+      .catch(() => {
+        feed.innerHTML = "<i>Failed to load public confessions.</i>";
+      });
   }
-  
-  document.addEventListener("DOMContentLoaded", loadPublicFeed);
-  
+
+  // Load on page start
+  fetchPublicConfessions();
