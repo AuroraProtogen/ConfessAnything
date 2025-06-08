@@ -19,5 +19,4 @@ function fetchPublicConfessions() {
       });
   }
 
-  // Load on page start
-  fetchPublicConfessions();
+document.addEventListener("DOMContentLoaded", loadPublicFeed);
