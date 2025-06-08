@@ -52,9 +52,6 @@ body {
     cursor: pointer;
     transition: transform 0.1s ease;
 }
-  .sendBtn:active {
-    transform: scale(0.9);
-}
   .sendBtn:hover {
     background-color: #0056b3;
     transform: scale(1.1);
@@ -73,9 +70,6 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.1s ease;
-}
-  .toggleFeedBtn:active {
-    transform: scale(0.9);
 }
   .note {
     font-size: 14px;
