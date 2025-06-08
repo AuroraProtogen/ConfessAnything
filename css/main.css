@@ -72,12 +72,17 @@ body {
     gap: 10px;
 }
   .public-feed {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 280px;
+    height: 100vh;
     padding: 1rem;
     background: #090808;
     border-right: 1px solid #000;
-    height: 100vh;
     overflow-y: auto;
+    z-index: 10;
+    transition: left 0.3s ease;
 }
   .public-feed h2 {
     font-size: 1.2rem;
@@ -88,7 +93,7 @@ body {
     background: #1e1e1e;
     border: 1px solid #000;
     padding: 0.8rem;
-    border-radius: 90px;
+    border-radius: 0px;
     margin-bottom: 0.24rem;
     font-size: 15;
     white-space: pre-wrap;
