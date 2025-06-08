@@ -33,7 +33,7 @@
 </head>
 
 <body>
-  <button id="toggleFeedBtn" class="feed-toggle-btn" onclick="toggleFeed()">Show Public Confessions</button>
+  <button id="toggleFeedBtn" class="toggleFeedBtn" onclick="toggleFeed()">Show Public Confessions</button>
 
   <div class="public-feed" id="publicFeed">
     <h2>Public Confessions</h2>
@@ -46,12 +46,12 @@
   
     <div class="container">
       <input type="text" id="confession" placeholder="Type your confession..." required />
-      <button type="button" onclick="sendConfession()" id="sendBtn">Send</button>
+      <button type="sendBtn" onclick="sendConfession()" id="sendBtn">Send</button>
     </div>
   
     <div class="public-toggle">
       <span>Make confession public?</span>
-      <button id="publicToggleBtn" type="button" onclick="togglePublic()"></button>
+      <button id="publicToggleBtn" type="publicToggleBtn" onclick="togglePublic()"></button>
     </div>
   
     <div class="note">
