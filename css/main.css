@@ -62,3 +62,18 @@ body {
     color: #aaa;
     margin-top: 10px;
 }
+  .public-toggle {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #publicToggleBtn {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+  }
