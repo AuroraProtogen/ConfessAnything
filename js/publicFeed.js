@@ -19,4 +19,4 @@ function fetchPublicConfessions() {
       });
   }
 
-document.addEventListener("DOMContentLoaded", loadPublicFeed);
+document.addEventListener("DOMContentLoaded", fetchPublicConfessions);
