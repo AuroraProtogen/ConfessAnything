@@ -1,6 +1,6 @@
 function loadPublicFeed() {
     fetch('https://sweet-pond-868f.aurorap.workers.dev/', {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
