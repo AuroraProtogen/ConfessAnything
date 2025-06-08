@@ -1,61 +1,61 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Confess Anything</title>
 
-  <!-- Basic Metadata for Embed Preview -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Confess Anything" />
   <meta property="og:description" content="Send anonymous confessions or any message to me without having me added." />
   <meta property="og:image" content="attachments/preview.png" />
   <meta property="og:url" content="https://confessanything.pages.dev/" />
   <meta property="og:type" content="website" />
 
-  <!-- Twitter Embed -->
-  <meta name="twitter:title" content="Confess Anything">
-  <meta name="twitter:description" content="Send anonymous confessions or any message to me without having me added.">
-  <meta name="twitter:image" content="attachments/preview.png">
+  <!-- Twitter -->
+  <meta name="twitter:title" content="Confess Anything" />
+  <meta name="twitter:description" content="Send anonymous confessions or any message to me without having me added." />
+  <meta name="twitter:image" content="attachments/preview.png" />
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="css/main.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
 
-  <!-- Main JS -->
-  <script src="js/utils.js"></script>
-  <script src="js/publicToggle.js"></script>
-  <script src="js/sendConfession.js"></script>
-  <script src="js/publicFeed.js"></script>
+  <!-- Scripts -->
+  <script src="js/utils.js" defer></script>
+  <script src="js/publicToggle.js" defer></script>
+  <script src="js/sendConfession.js" defer></script>
+  <script src="js/publicFeed.js" defer></script>
+  <script src="js/publicToggle.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
 
-  <!-- Toastify CSS and JS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
+  <button id="toggleFeedBtn" class="feed-toggle-btn" onclick="toggleFeed()">Show Public Confessions</button>
+
   <div class="public-feed" id="publicFeed">
     <h2>Public Confessions</h2>
     <div id="feedContent">Loading...</div>
   </div>
-  
-  <div class="wrapper">
+
+  <div class="wrapper" id="mainWrapper">
     <h1>Confess anything to me</h1>
     <div class="subtitle">All confessions are anonymous.</div>
-  
+
     <div class="container">
       <input type="text" id="confession" placeholder="Type your confession..." required />
       <button type="button" onclick="sendConfession()" id="sendBtn">Send</button>
     </div>
-  
+
     <div class="public-toggle">
       <span>Make confession public?</span>
       <button id="publicToggleBtn" type="button" onclick="togglePublic()"></button>
     </div>
-  
-    <div class="note">
-      I made this with ChatGPT, I ain't a HTML coder.
-    </div>
+
+    <div class="note">I made this with ChatGPT, I ain't a HTML coder.</div>
   </div>
-  
 </body>
 
 </html>
